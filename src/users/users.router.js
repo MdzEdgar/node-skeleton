@@ -4,12 +4,13 @@ const router = require('express').Router();
 //! const router = express.Router()
 
 const userServices = require("./users.services");
+const JwtPassport = require('../middlewares/passport.middleware')
 
 // router.get('/users', userServices.getAllUsers)
 // router.post('/users', userServices.postNewUser)
 
 router.route("/")
-  .get(userServices.getAllUsers)
+  .get(JwtPassport.authenticate('jwt', { session: false }), userServices.getAllUsers)
   .post(userServices.postNewUser);
 
 // router.get('/users/:id', userServices.getUserById)
