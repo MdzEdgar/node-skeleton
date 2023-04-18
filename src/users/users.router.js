@@ -17,6 +17,9 @@ router.route("/")
 // router.patch('/users/:id', userServices.patchUser)
 // router.delete('/users/:id', userServices.deleteUser)
 
+router.route('/me')
+  .get(JwtPassport.authenticate('jwt', {session: false}), userServices.getMyUser)
+
 router.route("/:id")
   .get(userServices.getUserById)
   .patch(userServices.patchUser)
